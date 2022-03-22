@@ -15,7 +15,19 @@ module.exports.create = async function(req, res){
             post.comments.push(comment);
             post.save();
     
-            res.redirect('/');
+            if(req.xhr){
+                let comment_info = await comment.populate('user', 'name');
+                return res.status(200).json({
+                    data: {
+                        comment: comment_info,
+                    },
+                    message: 'Comment Created'
+                });
+            }
+    
+            // req.flash('success', 'Post published')
+            return res.redirect('back');
+            
         }
     }catch(err){
         console.log('Error', err);
