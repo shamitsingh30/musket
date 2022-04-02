@@ -12,6 +12,9 @@ router.post('/update/:id', passport.checkAuthentication, usersController.update)
 router.get('/sign-up', usersController.signUp);
 router.get('/sign-in', usersController.signIn);
 
+router.get('/forgot-password', usersController.forgotPass);
+router.post('/forgot-password/send-email', usersController.getEmail);
+
 router.post('/create', usersController.create);
 
 // router.post('/post', usersController.post);

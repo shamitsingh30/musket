@@ -1,6 +1,9 @@
 const User = require('../models/user');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
+const ForgotPassword = require('../models/forgotPass');
+const passMailer = require('../mailers/password_mailer');
 
 module.exports.profile = function(req, res){
     User.findById(req.params.id, function(err, user){
@@ -61,6 +64,41 @@ module.exports.signIn = function(req, res){
     return res.render('user_sign_in', {
         title: "Sign In"
     })
+}
+
+module.exports.forgotPass = function(req, res){
+    return res.render('forgot_password', {
+        title: "Forgot Password"
+    })
+}
+
+module.exports.getEmail = async function(req, res){
+
+    try{
+        let user = await User.find({email: req.body.email});
+        let accessToken;
+
+        if(user){
+            accessToken = crypto.randomBytes(20).toString('hex');
+            
+            await ForgotPassword.findOneAndUpdate({
+                email: req.body.email,
+                accessToken: accessToken,
+                isValid: true
+            },  { expire: new Date() }, { upsert: true, new: true, setDefaultsOnInsert: true });
+
+            passMailer.newPassword(req.body.email);
+
+            return res.send(`<h1>Email has been sent to ${req.body.email}</h1>`);
+        }else{
+            console.log("This email has not been registered in Codeial");
+            return res.redirect('back');
+        }
+    }catch(err){
+        console.log('Error in checking valid email', err);
+        res.redirect('back');
+    }
+
 }
 
 module.exports.create = function(req, res){
