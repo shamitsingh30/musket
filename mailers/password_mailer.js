@@ -14,7 +14,7 @@ module.exports.newPassword = async (email) => {
         from: 'shamitsingh1812@gmail.com',
         to: email,
         subject: "Link Generated for new password",
-        html: `http://127.0.0.1:8000/users/${user.accessToken}`
+        html: `http://127.0.0.1:8000/users/reset-password/?accessToken=${user.accessToken}`
     }, (err, info) => {
         if(err){console.log('Error in sending mail', err); return};
 

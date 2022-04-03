@@ -4,6 +4,7 @@ const path = require('path');
 const crypto = require('crypto');
 const ForgotPassword = require('../models/forgotPass');
 const passMailer = require('../mailers/password_mailer');
+const { runInNewContext } = require('vm');
 
 module.exports.profile = function(req, res){
     User.findById(req.params.id, function(err, user){
@@ -99,6 +100,46 @@ module.exports.getEmail = async function(req, res){
         res.redirect('back');
     }
 
+}
+
+module.exports.resetPass = async function(req, res){
+    console.log(req.query);
+    let user = await ForgotPassword.findOne({accessToken: req.query.accessToken});
+    
+    if(user){
+        return res.render('password_form', {
+            title: "Password Form",
+            email: user.email
+        });
+    }else{
+        return res.send("<h1>No user found</h1>")
+    }
+}
+
+module.exports.setPass = async function(req, res){
+
+    console.log("Inside set password");
+    console.log(req.query.email);
+    
+    if(req.body.password == req.body.confirm_password){
+        // let field = await ForgotPassword.find({accessToken: req.query.accessToken});
+        // if(field){
+            try{
+                let user = await User.findOneAndUpdate({email: req.query.email}, {password: req.body.password});
+                if(user){
+                    ForgotPassword.findOneAndUpdate({isValid: false});
+                    return res.render('user_sign_in', {title: "Sign In"});
+                }
+            }catch(err){
+                console.log("Error in updating Password", err);
+                res.redirect('back');
+            }
+            
+        // }
+    }else{
+        console.log("Password and Confirm password did not match");
+        return res.redirect('back');
+    }
 }
 
 module.exports.create = function(req, res){

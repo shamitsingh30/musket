@@ -15,6 +15,9 @@ router.get('/sign-in', usersController.signIn);
 router.get('/forgot-password', usersController.forgotPass);
 router.post('/forgot-password/send-email', usersController.getEmail);
 
+router.get('/reset-password', usersController.resetPass);
+router.post('/reset-password', usersController.setPass);
+
 router.post('/create', usersController.create);
 
 // router.post('/post', usersController.post);
