@@ -4,7 +4,6 @@ const path = require('path');
 const crypto = require('crypto');
 const ForgotPassword = require('../models/forgotPass');
 const passMailer = require('../mailers/password_mailer');
-const { runInNewContext } = require('vm');
 
 module.exports.profile = function(req, res){
     User.findById(req.params.id, function(err, user){

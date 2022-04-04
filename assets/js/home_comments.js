@@ -33,6 +33,12 @@
                 </small>
                 
                 ${ comment.content }
+
+                <div class="like-button">
+                    
+                    <a href="/likes/toggle/?id=${comment._id}&type=Comment">0 Like</a>
+                    
+                </div>
                 <br>
                 <small>
                         ${comment.user.name}

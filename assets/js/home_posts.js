@@ -32,6 +32,13 @@
             </small>
                 
             ${ post.content }<br>
+
+            <div class="like-button">
+                    
+                <a href="/likes/toggle/?id=${post._id}&type=Post">0 Like</a>
+                    
+            </div>
+
             <small>
                 ${ post.user.name }
             </small>

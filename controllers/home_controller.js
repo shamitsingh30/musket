@@ -7,11 +7,12 @@ module.exports.home = async function(req, res){
         //populate the user of each post
         let posts = await Post.find({})
         .sort('-createdAt')
+        .populate('likes')
         .populate('user')
         .populate({
             path: 'comments',
             populate: {
-                path: 'user'
+                path: 'user',
             },
             options: { sort: { 'createdAt': -1 } }
         });
@@ -19,6 +20,7 @@ module.exports.home = async function(req, res){
         let users = await User.find({});
 
 
+        // console.log(posts[1]);
         return res.render('home', {
             title: 'Codeial',
             posts: posts,
