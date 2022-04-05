@@ -25,7 +25,7 @@
                                                         <%= post.content %>
                                                         <div class="like-button">
                                                                 <% if(locals.user){ %>
-                                                                        <a href="/likes/toggle/?id=<%= post._id %>&type=Post" class="like-button" id="post-like-button"><%= post.likes.length %> Like</a>
+                                                                        <a class="toggle-like-button" href="/likes/toggle/?id=<%= post._id %>&type=Post" class="like-button" id="post-like-button"><%= post.likes.length %> Like</a>
                                                                 <% }else{ %>
                                                                         <span><%= post.likes.length %> Like</span>
                                                                 <% } %>
@@ -49,17 +49,17 @@
                                                         <div class="post-comments-list">
                                                                 <ul id="post-comments-<%= post._id %>">
                                                                         <% for (comment of post.comments){ %>
-                                                                                <li>
+                                                                                <li id="comment-<%= comment.id %>">
                                                                                         <p>
                                                                                                 <% if (locals.user && (locals.user.id == comment.user.id)){ %>
                                                                                                         <small>
-                                                                                                                <a href="/comments/destroy/<%= comment.id %>">X</a>
+                                                                                                                <a class="delete-post-button" href="/comments/destroy/<%= comment.id %>">X</a>
                                                                                                         </small>
                                                                                                 <% } %>
                                                                                                 <%= comment.content %>
                                                                                                 <div class="like-button">
                                                                                                         <% if(locals.user){ %>
-                                                                                                                <a href="/likes/toggle/?id=<%= comment._id %>&type=Comment" id="like-button"><%= comment.likes.length %> Like</a>
+                                                                                                                <a class="toggle-like-button" href="/likes/toggle/?id=<%= comment._id %>&type=Comment" id="like-button"><%= comment.likes.length %> Like</a>
                                                                                                         <% }else{ %>
                                                                                                                 <span><%= comment.likes.length %> Like</span>
                                                                                                         <% } %>

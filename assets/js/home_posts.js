@@ -1,5 +1,37 @@
-{   
+{
+ 
+    let toggleLike = function(){
+        let $toggleElement;
+
+        $('.like-button').delegate('a', 'click', function(event){
+            event.preventDefault();
+            $toggleElement = $(this);
+
+            $.ajax({
+                type: 'post',
+                url: $toggleElement.attr('href'),
+                success: function(data){
+                    let deleted = data.data.deleted;
+                    console.log(deleted);
+                    let likesCount = parseInt($toggleElement.text().split(" ")[0]);
+                    console.log(likesCount);
+                    if(deleted){
+                        likesCount--;
+                    }else{
+                        likesCount++;
+                    }
+                    $toggleElement.html(`${likesCount} Likes`);
+                },
+                error: function(error){
+                    console.log(error.responseText);
+                }
+            })
+        })
+    }
+
+    
     //method to post the form data using ajax
+
     let createPost = function(){
         let newPostForm = $('#new-post-form');
 
@@ -14,6 +46,7 @@
                     let newPost = newPostDom(data.data.post);
                     $('#posts-list-container>ul').prepend(newPost);
                     deletePost($(' .delete-post-button', newPost));
+                    toggleLike($(' .toggle-like-button'), newPost);
                 },
                 error: function(error){
                     console.log(error.responseText);
@@ -35,7 +68,7 @@
 
             <div class="like-button">
                     
-                <a href="/likes/toggle/?id=${post._id}&type=Post">0 Like</a>
+                <a class="toggle-like-button" href="/likes/toggle/?id=${post._id}&type=Post">0 Like</a>
                     
             </div>
 
@@ -65,6 +98,7 @@
 
     //method to delete the post from DOM
     let deletePost = function(deleteLink){
+        console.log($(deleteLink));
         $(deleteLink).click(function(e){
             e.preventDefault();
 
@@ -73,13 +107,14 @@
                 url: $(deleteLink).prop('href'),
                 success: function(data){
                     $(`#post-${data.data.post_id}`).remove();
+                    // $(`#like-button-${data.data.post_id}`);
                 },
                 error: function(error){
                     console.log(error.responseText);
                 }
             })
         })
-    }
+    };
 
     createPost();
 }
