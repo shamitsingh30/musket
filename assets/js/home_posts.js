@@ -1,35 +1,5 @@
 {
- 
-    let toggleLike = function(){
-        let $toggleElement;
 
-        $('.like-button').delegate('a', 'click', function(event){
-            event.preventDefault();
-            $toggleElement = $(this);
-
-            $.ajax({
-                type: 'post',
-                url: $toggleElement.attr('href'),
-                success: function(data){
-                    let deleted = data.data.deleted;
-                    console.log(deleted);
-                    let likesCount = parseInt($toggleElement.text().split(" ")[0]);
-                    console.log(likesCount);
-                    if(deleted){
-                        likesCount--;
-                    }else{
-                        likesCount++;
-                    }
-                    $toggleElement.html(`${likesCount} Likes`);
-                },
-                error: function(error){
-                    console.log(error.responseText);
-                }
-            })
-        })
-    }
-
-    
     //method to post the form data using ajax
 
     let createPost = function(){
@@ -46,7 +16,7 @@
                     let newPost = newPostDom(data.data.post);
                     $('#posts-list-container>ul').prepend(newPost);
                     deletePost($(' .delete-post-button', newPost));
-                    toggleLike($(' .toggle-like-button'), newPost);
+                    new ToggleLike($(' .toggle-like-button', newPost));
                 },
                 error: function(error){
                     console.log(error.responseText);

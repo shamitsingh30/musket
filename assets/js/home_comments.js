@@ -46,7 +46,7 @@
                     let newComment = newCommentDom(data.data.comment);
                     $(`#post-comments-${data.data.comment.post}`).prepend(newComment);
                     deleteComment($(' .delete-comment-button', newComment));
-                    toggleLike($(' .toggle-like-button'), newComment);
+                    new ToggleLike($(' .toggle-like-button'), newComment);
                 },
                 error: function(error){
                     console.log(error.responseText);
