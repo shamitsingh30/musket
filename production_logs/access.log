@@ -716,3 +716,4 @@
 ::ffff:127.0.0.1 - - [15/Apr/2022:13:22:22 +0000] "GET / HTTP/1.1" 200 10149 "http://127.0.0.1:8000/users/sign-in" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36"
 ::ffff:127.0.0.1 - - [15/Apr/2022:13:22:31 +0000] "GET /users/sign-out HTTP/1.1" 302 46 "http://127.0.0.1:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36"
 ::ffff:127.0.0.1 - - [15/Apr/2022:13:22:31 +0000] "GET / HTTP/1.1" 200 8269 "http://127.0.0.1:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36"
+::ffff:127.0.0.1 - - [23/May/2022:17:56:44 +0000] "GET / HTTP/1.1" 304 - "http://127.0.0.1:8000/users/sign-in" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36"
