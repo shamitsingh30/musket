@@ -7,7 +7,6 @@ require('./config/view-helpers')(app);
 
 const port = 8000;
 const path = require('path');
-const cors = require('cors');
 const expressLayouts = require('express-ejs-layouts');
 
 const db = require('./config/mongoose');
@@ -39,8 +38,6 @@ if(env.name == 'development'){
 }
 
 app.use(express.urlencoded({extended: true}));
-
-app.use(cors());
 
 app.use(cookieParser());
 
