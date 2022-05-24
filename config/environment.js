@@ -27,7 +27,7 @@ const development = {
     },
     google_clientID: "1079490264117-4cot72teii8nn8v803psqdt34425jd72.apps.googleusercontent.com",
     google_clientSecret: "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",
-    google_callbackURL: "http://localhost:8000/users/auth/google/callback",
+    google_callbackURI: "http://localhost:8000/users/auth/google/callback",
     jwt_secret: 'codeial',
     morgan: {
         mode: 'dev',
@@ -52,7 +52,7 @@ const production = {
     },
     google_clientID: process.env.CODEIAL_GOOGLE_CLIENT_ID,
     google_clientSecret: process.env.CODEIAL_GOOGLE_CLIENT_SECRET,
-    google_callbackURL: process.env.CODEIAL_GOOGLE_CALLBACK_URL,
+    google_callbackURI: process.env.CODEIAL_GOOGLE_CALLBACK_URI,
     jwt_secret: process.env.CODEIAL_JWT_SECRET,
     morgan: {
         mode: 'combined',
